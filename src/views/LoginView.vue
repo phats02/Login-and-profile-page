@@ -39,14 +39,14 @@ export default {
     handleSubmit () {
       if (!this.email || !this.password) {
         this.msg = 'Email or password must be not empty'
-        this.isShowNoti = true
         document.querySelectorAll('.login>label>input').forEach(el => {
           el.style.borderColor = 'red'
         })
+        this.isShowNoti = true
         this.shake = true
         setTimeout(() => {
           this.shake = false
-        }, 820) // timeout value depending on the duration of the animation
+        }, 820)
       }
     },
     removeBorderColor (e) {
@@ -188,4 +188,9 @@ export default {
 
 .apply-shake {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}</style>
+}
+#showPassword:checked {
+  background-color: #2e09db;
+}
+
+</style>
