@@ -1,29 +1,60 @@
 <template>
   <div class="login">
+    <Alert :msg="msg" :type="type" @show='(payload) => { this.isShowNoti = payload }' :isShow='this.isShowNoti'></Alert>
     <h1 class="title">Login</h1>
     <label>
       <p>Email</p>
-      <input type="email" name="email" placeholder="example@kyanon.digital" autocomplete="on" tabindex="0">
+      <input type="email" name="email" :class="{ 'apply-shake': shake }" placeholder="example@kyanon.digital"
+        autocomplete="on" v-model.lazy="email" @focus="removeBorderColor">
     </label>
     <label>
       <p>Password</p>
-      <input :type='isShowPassword ? "text":"password"' placeholder="******">
+      <input :type='isShowPassword ? "text" : "password"' :class="{ 'apply-shake': shake }" placeholder="******"
+        v-model.lazy="password" @focus="removeBorderColor">
     </label>
     <div class="row">
       <label for="showPassword" class="pw">
         <input type="checkbox" id="showPassword" name="showPassword" v-model="isShowPassword" />
         Show password
       </label>
-      <button id="submit-btn">Sign In</button>
+      <button id="submit-btn" @click="handleSubmit()">Sign In</button>
     </div>
   </div>
 </template>
 <script>
+import Alert from '../components/AlertComponent.vue'
 export default {
   data () {
     return {
-      isShowPassword: false
+      isShowPassword: false,
+      email: null,
+      password: null,
+      msg: '',
+      isShowNoti: false,
+      type: '',
+      shake: false
     }
+  },
+  methods: {
+    handleSubmit () {
+      if (!this.email || !this.password) {
+        this.msg = 'Email or password must be not empty'
+        this.isShowNoti = true
+        document.querySelectorAll('.login>label>input').forEach(el => {
+          el.style.borderColor = 'red'
+        })
+        this.shake = true
+        setTimeout(() => {
+          this.shake = false
+        }, 820) // timeout value depending on the duration of the animation
+      }
+    },
+    removeBorderColor (e) {
+      e.target.style.borderColor = null
+    }
+  },
+  components: {
+    Alert
   }
 }
 </script>
@@ -130,4 +161,31 @@ export default {
   border-radius: 3px;
   transform: scale(1.02);
 }
-</style>
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.apply-shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}</style>
