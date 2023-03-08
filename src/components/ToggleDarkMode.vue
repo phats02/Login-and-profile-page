@@ -15,48 +15,18 @@ export default {
     }
   },
   computed: {
-    dynamicStyle () {
-      if (this.isDark) {
-        return require('../assets/style/darkModeStyle.css')
-      } else {
-        return require('../assets/style/lightModeStyle.css')
-      }
-    }
   },
   methods: {
     toggle () {
       this.isDark = !this.isDark
-      const el = document.getElementById('changeMode')
       if (this.isDark) {
-        el.innerHTML = `html {
-    background-color: #222 !important;
-  }
-  
-  body {
-    filter: contrast(90%) invert(90%) hue-rotate(180deg) !important;
-    -ms-filter: invert(100%);
-    -webkit-filter: contrast(90%) invert(90%) hue-rotate(180deg) !important;
-    text-rendering: optimizeSpeed;
-    image-rendering: optimizeSpeed;
-    -webkit-font-smoothing: antialiased;
-    -webkit-image-rendering: optimizeSpeed;
-  }
-  
-  input, textarea, select {
-    color: purple;
-  }
-  
-  img, video, iframe, canvas, svg, embed[type='application/x-shockwave-flash'], object[type='application/x-shockwave-flash'], *[style*='url('] {
-    filter: invert(100%) hue-rotate(-180deg) !important;
-    -ms-filter: invert(100%) !important;
-    -webkit-filter: invert(100%) hue-rotate(-180deg) !important;
-  }`
+        document.querySelectorAll('*').forEach(element => {
+          element.setAttribute('mode', 'dark')
+        })
       } else {
-        el.innerHTML = `body{
-    background-color: #f4f4f4;
-    width: 100vw;
-    overflow-x: hidden;
-  }`
+        document.querySelectorAll('*').forEach(element => {
+          element.setAttribute('mode', 'light')
+        })
       }
     }
   }
@@ -140,4 +110,43 @@ input:checked+.slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+</style>
+<style>
+html[mode="dark"] {
+  background-color: #222 !important;
+}
+
+body[mode="dark"] {
+  filter: contrast(90%) invert(90%) hue-rotate(180deg) !important;
+  -ms-filter: invert(100%);
+  -webkit-filter: contrast(90%) invert(90%) hue-rotate(180deg) !important;
+  text-rendering: optimizeSpeed;
+  image-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -webkit-image-rendering: optimizeSpeed;
+}
+
+input[mode="dark"],
+textarea[mode="dark"],
+select[mode="dark"] {
+  color: purple;
+}
+
+img[mode="dark"],
+video[mode="dark"],
+iframe[mode="dark"],
+canvas[mode="dark"],
+svg[mode="dark"],
+embed[type='application/x-shockwave-flash'][mode="dark"],
+object[type='application/x-shockwave-flash'][mode="dark"],
+*[style*='url('][mode="dark"] {
+  filter: invert(100%) hue-rotate(-180deg) !important;
+  -ms-filter: invert(100%) !important;
+  -webkit-filter: invert(100%) hue-rotate(-180deg) !important;
+}
+body[mode='light']{
+    background-color: #f4f4f4;
+    width: 100vw;
+    overflow-x: hidden;
+  }
 </style>
