@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <Alert :msg="msg" :type="type" @show='(payload) => { this.isShowNoti = payload }' :isShow='this.isShowNoti'></Alert>
+    <Alert :msg="msg" :type="type" @show='toggleAlert' :isShow='this.isShowNoti'></Alert>
     <h1 class="title">Login</h1>
     <label>
       <p>Email</p>
@@ -36,7 +36,15 @@ export default {
     }
   },
   methods: {
+    validateEmail (email) {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    },
     handleSubmit () {
+      this.isShowNoti = false
       if (!this.email || !this.password) {
         this.msg = 'Email or password must be not empty'
         document.querySelectorAll('.login>label>input').forEach(el => {
@@ -47,10 +55,31 @@ export default {
         setTimeout(() => {
           this.shake = false
         }, 820)
+      } else if (!this.validateEmail(this.email)) {
+        this.msg = 'Email invalidate'
+        document.querySelectorAll('.login>label>input[type="email"]').forEach(el => {
+          el.style.borderColor = 'red'
+        })
+        this.isShowNoti = true
+        // this.isShowNoti = true
+        this.shake = true
+        setTimeout(() => {
+          this.shake = false
+        }, 820)
+      } else {
+        this.msg = '1'
+        this.type = 'success'
+        this.isShowNoti = true
+        localStorage.setItem('LoggedUser', this.email)
+        this.$router.push('/profile')
       }
     },
     removeBorderColor (e) {
       e.target.style.borderColor = null
+    },
+    toggleAlert (payload) {
+      // console.log(payload)
+      this.isShowNoti = payload
     }
   },
   components: {
@@ -66,7 +95,7 @@ export default {
   margin: 2rem auto;
   display: block;
   border-radius: 20px;
-  min-height: 60vh
+  min-height: 60vh;
 }
 
 .login .title {
@@ -162,35 +191,36 @@ export default {
   transform: scale(1.02);
 }
 
-@keyframes shake {
-
-  10%,
-  90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-
-.apply-shake {
-  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
 #showPassword:checked {
   background-color: #2e09db;
 }
+</style>
+<style>
+@keyframes shake {
 
+10%,
+90% {
+  transform: translate3d(-1px, 0, 0);
+}
+
+20%,
+80% {
+  transform: translate3d(2px, 0, 0);
+}
+
+30%,
+50%,
+70% {
+  transform: translate3d(-4px, 0, 0);
+}
+
+40%,
+60% {
+  transform: translate3d(4px, 0, 0);
+}
+}
+
+.apply-shake {
+animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
 </style>

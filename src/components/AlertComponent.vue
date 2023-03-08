@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <Transition>
-    <div class="alert" :class="this.type" v-if="isShow">
+    <div class="alert" :class="this.type" v-if="this.isShow">
       <div class="row">
         <span class="closebtn" @click="this.$emit('show', false)">&times;</span>
         <p>{{ msg }}</p>
@@ -20,7 +20,7 @@ export default {
     }
   },
   props: ['type', 'msg', 'isShow'],
-  async updated () {
+  updated () {
     const elem = document.getElementById('myBar')
     let width = 100
     if (!this.isShow) {
@@ -28,6 +28,7 @@ export default {
       return
     }
     const e = this
+    const id = setInterval(frame, 80)
     function frame () {
       if (width < 0) {
         clearInterval(id)
@@ -37,7 +38,6 @@ export default {
         elem.style.width = width + '%'
       }
     }
-    const id = setInterval(frame, 80)
   }
 }
 </script>
