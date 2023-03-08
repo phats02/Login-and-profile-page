@@ -33,4 +33,4 @@ Email: admin@kyanon.digital
 Password: 123
 ```  
 Now, you can enjoy all the feature of the website.  
-In addition, I have also added a dark mode feature which you can try out on the live demo.
+Furthermore, I added a dark mode feature that you can try out on the live demo.
