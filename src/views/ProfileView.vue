@@ -1,5 +1,6 @@
 <template>
   <div class="profile">
+    <Alert :msg="msg" :type="type" @show='(payload) => this.isShowNoti = payload' :isShow='this.isShowNoti'></Alert>
     <h1 class="title">Profile</h1>
     <div class="row">
       <p>Email</p>
@@ -24,6 +25,7 @@
   </div>
 </template>
 <script>
+import Alert from '../components/AlertComponent.vue'
 export default {
   methods: {
     getValue (key) {
@@ -37,7 +39,36 @@ export default {
       this.$router.push({ name: 'profileUpdate' })
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
+  },
+  computed: {
+    prevRoutePath () {
+      return this.prevRoute ? this.prevRoute.path : '/'
+    }
+  },
   mounted () {
+    if (this.prevRoutePath === '/login' || this.prevRoutePath === '/') {
+      this.msg = 'Login successfully'
+      this.type = 'success'
+      this.isShowNoti = true
+    } else if (this.prevRoutePath === '/profile/update') {
+      this.msg = 'Update successfully'
+      this.type = 'success'
+      this.isShowNoti = true
+    }
+  },
+  data () {
+    return {
+      msg: '',
+      isShowNoti: false,
+      type: ''
+    }
+  },
+  components: {
+    Alert
   }
 }
 </script>
@@ -51,32 +82,39 @@ export default {
   border-radius: 20px;
   min-height: 60vh;
 }
+
 .profile .title {
   text-align: left;
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   margin-bottom: 3rem;
 }
+
 .row {
   display: flex;
   flex-wrap: nowrap;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-p{
+
+p {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.2vw;
-  color:black;
+  font-size: 90%;
+  color: black;
   border: 1px solid #EEEEEE;
   padding: 2vw 0px;
   padding-left: 1vw;
 
 }
-.row p:first-child{
+
+.row p:first-child {
   width: 20%;
 }
-.row p:last-child{
+
+.row p:last-child {
   width: 80%;
 }
+
 #submit-btn {
   background: #2e09db;
   border: none;
@@ -100,6 +138,7 @@ p{
   transition: .5s;
   font-weight: bold;
 }
+
 #submit-btn:hover {
   background-color: #4BB543;
   border-radius: 3px;
@@ -111,7 +150,8 @@ p{
   border-radius: 3px;
   transform: scale(1.02);
 }
-.row.flex-end{
+
+.row.flex-end {
   justify-content: flex-end;
   margin-top: 1rem;
 }

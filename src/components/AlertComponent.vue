@@ -49,7 +49,7 @@ export default {
   z-index: 1000;
   top: 5vh;
   right: 0px;
-  width: 30vw;
+  width: 32vw;
   opacity: .8;
 }
 
@@ -102,5 +102,8 @@ export default {
   width: 0%;
   height: 5px;
   background-color: #FF8C00;
+}
+.alert.success #myBar {
+  background-color: #38f3ae;
 }
 </style>

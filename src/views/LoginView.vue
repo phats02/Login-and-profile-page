@@ -84,6 +84,23 @@ export default {
   },
   components: {
     Alert
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
+  },
+  computed: {
+    prevRoutePath () {
+      return this.prevRoute ? this.prevRoute.path : '/'
+    }
+  },
+  mounted () {
+    if (this.prevRoutePath === '/profile') {
+      this.msg = 'Logout successfully'
+      this.type = 'success'
+      this.isShowNoti = true
+    }
   }
 }
 </script>

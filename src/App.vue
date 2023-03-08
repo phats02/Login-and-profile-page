@@ -1,11 +1,14 @@
 <template>
+  <ToggleDarkMode />
   <router-view/>
 </template>
-
-<style>
-body{
-  background-color: #f4f4f4;
-  width: 100vw;
-  overflow-x: hidden;
+<script>
+import ToggleDarkMode from './components/ToggleDarkMode.vue'
+export default {
+  components: {
+    ToggleDarkMode
+  }
 }
+</script>
+<style>
 </style>
