@@ -32,5 +32,6 @@ Just enter a valid email and password and you can log in to the system. Example:
 Email: admin@kyanon.digital  
 Password: 123
 ```  
+or any valid email and password you can think of.  
 Now, you can enjoy all the feature of the website.  
 Furthermore, I added a dark mode feature that you can try out on the live demo.

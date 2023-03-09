@@ -56,7 +56,7 @@ export default {
           this.shake = false
         }, 820)
       } else if (!this.validateEmail(this.email)) {
-        this.msg = 'Email invalidate'
+        this.msg = 'Invalid email'
         document.querySelectorAll('.profile>label>input[type="email"]').forEach(el => {
           el.style.borderColor = 'red'
         })
@@ -67,7 +67,7 @@ export default {
           this.shake = false
         }, 820)
       } else if (!this.validatePhone(this.phone)) {
-        this.msg = 'Phone invalidate'
+        this.msg = 'Invalid phone number.'
         document.querySelectorAll('.profile>label>input[type="tel"]').forEach(el => {
           el.style.borderColor = 'red'
         })
