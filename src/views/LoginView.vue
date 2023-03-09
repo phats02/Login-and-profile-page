@@ -56,7 +56,7 @@ export default {
           this.shake = false
         }, 820)
       } else if (!this.validateEmail(this.email)) {
-        this.msg = 'Email invalidate'
+        this.msg = 'Invalid Email'
         document.querySelectorAll('.login>label>input[type="email"]').forEach(el => {
           el.style.borderColor = 'red'
         })
