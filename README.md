@@ -1,6 +1,6 @@
 # kyanon
 ## Introduction  
-### Live Demo: https://fe-kyanon-g0mzfracr-phats02.vercel.app  
+### Live Demo: https://fe-kyanon.vercel.app  
 ### The sketch of the authentication flow: https://drive.google.com/file/d/1LvZqFH1DmXZk3OkHvBU_C3z2Yef-Bh18/view?usp=sharing
 ## Project setup
 ```
